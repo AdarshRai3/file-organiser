@@ -1,91 +1,265 @@
-#Problem : Downloads -> ALL Files (png , jpeg : Images , docs , pdf :Documents)
-# Misorganised Downloads Folder
+Here are your **clean, structured, interview-ready OOP notes**—organized for quick revision and conceptual clarity.
 
-#Solution : Agent that can organise the files in the downloads folder and also able to check their type when I download a file and move it to the correct folder
+---
 
-#OOPS Concepts :
+# 🧠 Object-Oriented Programming (OOP) — Structured Notes
 
-#Class : Structure , No real world instantiation
-#Object : Real World Entity
-#Enscapulation : Hiding data + methods together and controlling access to it
+## 1. Class vs Object
+
+**Class**
+
+* Blueprint or template for creating objects
+* Defines attributes (variables) and behaviors (methods)
+* No real-world existence
+
+```python
+class Car:
+    pass
+```
+
+**Object**
+
+* Instance of a class (real-world entity)
+* Occupies memory
+
+```python
+car1 = Car()
+```
+
+---
+
+## 2. Encapsulation (Data Hiding)
+
+* Bundling **data + methods** together
+* Restricting direct access to internal state
+* Achieved using **private variables + getters/setters**
+
+```python
 class BankAccount:
     def __init__(self):
-        self.__balance = 0 #Private Variable
-        
-    def get_balance(self):
-        return self.__balance #Getter Method to provide access of private variable(__balance) to outside class and methods
-    
-#Inheritance : Reusing properties and behaviors of a parent class in a child class (code -> Parent , child -> code resue)
+        self.__balance = 0  # Private
+
+    def get_balance(self):  # Getter
+        return self.__balance
+
+    def set_balance(self, amount):  # Setter
+        if amount >= 0:
+            self.__balance = amount
+```
+
+**Key Insight**
+
+* Protects invariants (e.g., balance cannot be negative)
+* Reduces unintended side effects
+
+---
+
+## 3. Inheritance (Code Reuse)
+
+* Child class reuses properties of parent class
+* Represents **"is-a" relationship**
+
+```python
+class Animal:
+    def sound(self):
+        pass
+
 class Dog(Animal):
     def sound(self):
         return "Woof!"
-    
-class Cat(Animal):
-    def sound(self): -> Method signature
-        return "Meow!"-> Method implementation
-    
-#Abstraction : Hiding complex implementation details and showing only the necessary features to the user
 
+class Cat(Animal):
+    def sound(self):
+        return "Meow!"
+```
+
+**Types**
+
+* Single
+* Multiple
+* Multilevel
+* Hierarchical
+
+---
+
+## 4. Abstraction (Interface Design)
+
+* Hide implementation details
+* Show only essential behavior
+* Achieved using **abstract base classes (ABC)**
+
+```python
 from abc import ABC, abstractmethod
 
 class Animal(ABC):
     @abstractmethod
     def sound(self):
-        pass 
-    
-    #behavior : method
-    #attribute : variable
-    
-#Polymorphism : Ability of an object to take many forms (method overloading , method overriding)
-Method overloading : Same method name but different parameters (not supported in Python)
-**kargs , *args 
-
-Mehtod overrriding : Same method name and same parameters but different implementation in child class (supported in Python)
-
-
-#Supporting concepts :
-#Constructor : Special method used to initialize objects 
-# (in Python : __init__) 
-
-class Example:
-    
-    def instance_method(self):
-        print("This is an instance method.")
-        print("It can access instance variables and other instance methods.")
-        print("It works on objects of the class.")
-        
-    @classmethod
-    def class_method(cls):
-        print("This is a class method.")
-        print("It can access class variables and other class methods.")
-        print("It works on the class itself, not on instances.")
-    
-    @staticmethod
-    def static_method():
-        print("This is a static method.")
-        print("It cannot access instance variables or class variables")
-        print("It works independently of any class or instance")
-        
-    # Composition : A design principle where a class is composed of one or more objects of other classes, rather than inheriting from them (has-a relationship)
-    class Engine:
-        pass 
-    
-    class Car:
-        def __init__(self):
-            self.engine = Engine() #Car has an Engine (Composition)
-            
-    #Aggregation : A special form of composition where the contained objects can exist independently of the container (has-a relationship but with weaker coupling)
-    class Department:
         pass
-    
-    class University:
-        def __init__(self):
-            self.department = Department() #University has a Department (Aggregation)
-            
-    Access Modifier : Enscapulation concept that controls the visibility and accessibility of class members (variables and methods) to outside code (public , private , protected)
-    
-    Public : balance = 1000 (Accessible from anywhere)
-    Private : __balance = 1000 (Accessible only within the class)
-    Protected : _balance = 1000 (Accessible within the class and its subclasses)
-    
-    # -> Getter and Setter Methods : Methods used to access and modify private variables (getters to retrieve value , setters to set value)
+```
+
+**Why important**
+
+* Forces contract-based design
+* Useful in large systems (APIs, frameworks)
+
+---
+
+## 5. Polymorphism
+
+### Method Overriding (Runtime Polymorphism)
+
+* Same method name, different implementation
+
+```python
+class Dog(Animal):
+    def sound(self):
+        return "Woof!"
+```
+
+### Method Overloading (Not native in Python)
+
+* Achieved using `*args`, `**kwargs`
+
+```python
+def add(*args):
+    return sum(args)
+```
+
+**Key Idea**
+
+* Same interface → different behavior
+
+---
+
+## 6. Constructor
+
+* Special method to initialize objects
+* Runs automatically when object is created
+
+```python
+class Example:
+    def __init__(self):
+        self.value = 10
+```
+
+---
+
+## 7. Method Types
+
+### Instance Method
+
+* Works with object
+* Accesses instance variables
+
+```python
+def instance_method(self):
+    pass
+```
+
+### Class Method
+
+* Works with class
+* Uses `cls`
+
+```python
+@classmethod
+def class_method(cls):
+    pass
+```
+
+### Static Method
+
+* Independent utility function
+* No access to class or instance
+
+```python
+@staticmethod
+def static_method():
+    pass
+```
+
+---
+
+## 8. Composition (Has-A Relationship — Strong)
+
+* Class contains another class object
+* Strong coupling
+
+```python
+class Engine:
+    pass
+
+class Car:
+    def __init__(self):
+        self.engine = Engine()
+```
+
+---
+
+## 9. Aggregation (Has-A Relationship — Weak)
+
+* Objects exist independently
+* Loose coupling
+
+```python
+class Department:
+    pass
+
+class University:
+    def __init__(self, dept):
+        self.department = dept
+```
+
+---
+
+## 10. Access Modifiers
+
+| Type      | Syntax  | Access Level       |
+| --------- | ------- | ------------------ |
+| Public    | `var`   | Anywhere           |
+| Protected | `_var`  | Class + Subclasses |
+| Private   | `__var` | Only inside class  |
+
+---
+
+## 11. Getter & Setter
+
+* Controlled access to private variables
+
+```python
+class Example:
+    def __init__(self):
+        self.__value = 0
+
+    def get_value(self):
+        return self.__value
+
+    def set_value(self, val):
+        if val > 0:
+            self.__value = val
+```
+
+---
+
+## 🔥 High-Value Insights (Interview + Performance Thinking)
+
+* Prefer **composition over inheritance** (better flexibility)
+* Use **encapsulation** to maintain invariants → critical in large systems
+* Avoid deep inheritance chains → increases complexity and cache misses in large systems
+* Use **polymorphism** to reduce branching (`if-else explosion`)
+* Static methods are slightly faster (no object/context binding)
+
+---
+
+## 🧩 Mental Model
+
+* **Class** → Blueprint
+* **Object** → Instance
+* **Encapsulation** → Protection
+* **Inheritance** → Reuse
+* **Abstraction** → Interface
+* **Polymorphism** → Flexibility
+
+---
+
+If you want next step: I can convert this into a **real production-level file-organizer agent project using OOP + watchdog + concurrency + system-level optimizations** (aligned with your performance engineering goal).
